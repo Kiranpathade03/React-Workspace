@@ -30,7 +30,8 @@ import Questions from './components/Drawer/Questions';
 import Form from './components/HookformValidation/Form';
 import TAblewithQr from './components/task/TAblewithQr';
 import ParentCallback from './components/useCallback/ParentCallback';
-import Home from './components/BikeTask/Home'
+// import Home from './components/BikeTask/Home'
+import Home from './components/Appointment/Home';
 
 
 function App() {
