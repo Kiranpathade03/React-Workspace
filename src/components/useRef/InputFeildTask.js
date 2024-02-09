@@ -1,33 +1,36 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function InputFeildTask() {
-    const [value, setValue] = useState([
+function InputFieldTask() {
+    const [values, setValues] = useState([]);
+    const [checkedState, setCheckedState] = useState([]);
 
-    ]);
-    const Inpu1 = useRef(null)
+    const inputRef = useRef(null);
 
     useEffect(() => {
-        Inpu1.current.focus();
-    }, [])
+        inputRef.current.focus();
+    }, []);
 
-    const handlekeydown = (e) => {
+    const handleKeyDown = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
-            setValue([...value, e.target.value]);
+            setValues([...values, e.target.value]);
+            setCheckedState([...checkedState, false]); // Add initial unchecked state for new item
             e.target.value = '';
         }
-    }
-    const handlecheck=(e, index)=>{
-        console.log("status",e.target.checked , "At" , index);
-    }
+    };
+
+    const handleCheck = (index) => {
+        const updatedCheckedState = [...checkedState];
+        updatedCheckedState[index] = !updatedCheckedState[index];
+        setCheckedState(updatedCheckedState);
+    };
 
     return (
         <div>
             <div>
-                <input className='border border-black m-10' ref={Inpu1} onKeyDown={(e) => handlekeydown(e)} onChange={(e) => { }} />
+                <input className='border border-black m-10' ref={inputRef} onKeyDown={handleKeyDown} onChange={() => { }} />
             </div>
             <div className='mt-20'>
                 <TableContainer component={Paper}>
@@ -37,16 +40,16 @@ function InputFeildTask() {
                                 <TableCell sx={{ color: 'white' }}>Action</TableCell>
                                 <TableCell sx={{ color: 'white' }}>Confirm</TableCell>
                                 <TableCell sx={{ color: 'white' }}>Value</TableCell>
-
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {value.map((item, index) => (
-                                <TableRow key={index}  >
+                            {values.map((item, index) => (
+                                <TableRow key={index}>
                                     <TableCell><DeleteIcon /></TableCell>
-                                    <TableCell>   <input type='checkbox' onChange={(e)=>handlecheck(e, index)} /></TableCell>
-                                    <TableCell>{item}</TableCell>
-
+                                    <TableCell>
+                                        <input type='checkbox' checked={checkedState[index]} onChange={() => handleCheck(index)} />
+                                    </TableCell>
+                                    <TableCell style={{ color: checkedState[index] ? "green" : "black" }}>{item}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -54,7 +57,7 @@ function InputFeildTask() {
                 </TableContainer>
             </div>
         </div>
-    )
+    );
 }
 
-export default InputFeildTask
+export default InputFieldTask;

@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 
 
 
-function MainTabel({ Detail ,setDetail}) {
+function MainTabel({ Detail, setDetail }) {
   const {
     register,
     handleSubmit,
@@ -19,7 +19,7 @@ function MainTabel({ Detail ,setDetail}) {
   const [selectedRowData, setSelectedRowData] = useState(null);
   const Firsttextfeild = useRef(null)
   // First render to scope the input type
-console.log("selected row data" , selectedRowData);
+  console.log("selected row data", selectedRowData);
   useEffect(() => {
     Firsttextfeild.current.focus()
   }, [])
@@ -33,20 +33,20 @@ console.log("selected row data" , selectedRowData);
     }
   }
 
-  const DeleteRecord=(recordIndex)=>{
-    let temprecord=[...Detail]
+  const DeleteRecord = (recordIndex) => {
+    let temprecord = [...Detail]
 
-    temprecord.splice(recordIndex,1)
+    temprecord.splice(recordIndex, 1)
     setDetail(temprecord);
   }
-useEffect(()=>{
-if(selectedRowData !== null){
-  for(let  i=0; Detail?.length > 0; i++){
-    setValue(`batchNumber${i}`,selectedRowData.value)
-  }
+  // useEffect(() => {
+  //   if (selectedRowData !== null) {
+  //     for (let i = 0; Detail?.length > 0; i++) {
+  //       setValue(`batchNumber${i}`, selectedRowData.value)
+  //     }
 
-}
-},[selectedRowData])
+  //   }
+  // }, [selectedRowData])
 
 
   return (
@@ -69,7 +69,7 @@ if(selectedRowData !== null){
                 <TableCell><button onClick={() => { DeleteRecord(index) }}><DeleteOutlineIcon /></button></TableCell>
                 <TableCell>{item.Fname}</TableCell>
                 <TableCell>{item.Lname}</TableCell>
-                <TableCell><input name='batchNumber'{...register("batchNumber")} className='border border-black' ref={Firsttextfeild}  onKeyDown={(e) => handleOpen(e)} /></TableCell>
+                <TableCell><input name='batchNumber'{...register("batchNumber")} className='border border-black' ref={Firsttextfeild} onKeyDown={(e) => handleOpen(e)} /></TableCell>
                 <TableCell><input className='border border-black' /></TableCell>
               </TableRow>
             ))}
@@ -79,7 +79,7 @@ if(selectedRowData !== null){
       </TableContainer>
       <div>
 
-        <DetailModal open={open} setOpen={setOpen} selectedRowData={selectedRowData} setSelectedRowData={setSelectedRowData}/>
+        <DetailModal open={open} setOpen={setOpen} selectedRowData={selectedRowData} setSelectedRowData={setSelectedRowData} />
       </div>
     </div>
 

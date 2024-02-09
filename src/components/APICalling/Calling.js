@@ -1,27 +1,30 @@
-import axios from 'axios'
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 function Calling() {
-  const [post, setPost] = useState([]);
-  console.log(post);
+  const [data, setData] = useState([]);
+
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then(response => {
-        setPost(response.data)
+    axios.get('https://api.countrystatecity.in/v1/countries/IN')
+      .then((response) => {
+        setData(response.data)
       })
-      .catch(error => {
-        console.log(error, "error ocuured");
-      });
-  },);
+      .catch((error) => {
+        console.log(error);
+      })
+  }, [])
+console.log(data);
   return (
-    <div>
-        {post.map((post)=>{
-          <>
-          <p>{post.title}</p>
-          </>
-        })}
+    <div> 
+      {data.map((items)=>{
+        return(
+          <div>
+            <p>{items.email}</p>
+          </div>
+        )
+      })}
     </div>
   )
 }
 
-export default Calling;
+export default Calling
